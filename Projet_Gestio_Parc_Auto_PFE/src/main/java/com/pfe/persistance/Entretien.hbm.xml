@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 1 mars 2016 11:51:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Entretien" table="entretien">
+        <id name="numeroEntretien" type="java.lang.Integer">
+            <column name="numero_entretien" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="typeentretien" class="com.pfe.persistance.Typeentretien" fetch="select">
+            <column name="numero_typeE" />
+        </many-to-one>
+        
+        <many-to-one name="mecanicien" class="com.pfe.persistance.Mecanicien" fetch="select">
+         <column name="numero_mecanicien"/>
+        </many-to-one>
+        <property name="dateArrive" type="java.util.Date">
+            <column name="date_arrive" />
+        </property>
+        <property name="dateDepart" type="java.util.Date">
+            <column name="date_depart" />
+        </property>
+        <property name="coutTotal" type="java.lang.Float">
+            <column name="cout_total" />
+        </property>
+        <property name="dureeEntretien" type="java.lang.Integer">
+            <column name="duree_entretien" />
+        </property>
+    </class>
+</hibernate-mapping>

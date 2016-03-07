@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29 f?vr. 2016 10:10:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Departement" table="departement" catalog="parc_auto_pfe">
+        <id name="numeroDepartement" type="java.lang.Integer">
+            <column name="numero_departement" />
+            <generator class="identity" />
+        </id>
+        <property name="nomDepartement" type="string">
+            <column name="nom_departement" length="45" />
+        </property>
+        <set name="personnels" table="personnel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="numero_departement" />
+            </key>
+            <one-to-many class="com.pfe.persistance.Personnel" />
+        </set>
+    </class>
+</hibernate-mapping>

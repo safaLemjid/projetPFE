@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Gestion Reclamation</title>
+</h:head>
+<h:body>
+	<br />
+
+	<h:form id="f1">
+		<p:growl id="growl" life="3000" />
+
+		<div align="center">
+			<h:outputText value="Liste Des Reclamations"
+				style="font-size:36px;font-weight:bold"></h:outputText>
+			<br /> <br /> <br />
+			<div style="width: 50%">
+				<div align="right">
+					<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+						update=":f1:f2:idDialog" oncomplete="PF('dialogReclamation').show()"
+						actionListener="#{reclamationbean.Ajout()}" />
+				</div>
+
+				<p:dataTable var="r" 
+					value="#{reclamationbean.reclamtions}" border="1" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rows="10">
+					<p:column width="10%">
+						<f:facet name="header">
+							<h:outputLabel value="Numero Reclamation" style="font-size:small;font-weight:bold;width:600px" />
+						</f:facet>
+						<h:outputText value=" #{r.num_rec}" />
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Description" style="font-size:small;font-weight:bold;width:600px" />
+						</f:facet>
+						<h:outputText value=" #{r.description}" />
+
+					</p:column>
+					<p:column style="width:20%">
+						<p:commandButton
+							actionListener="#{reclamationbean.Modifier(r)}"
+							update=":f1:f2:idDialog" oncomplete="PF('dialogReclamation').show()"
+							icon="ui-icon-pencil" title="Modification" />
+						<p:commandButton
+							actionListener="#{reclamationbean.supprimer(r)}"
+							icon="ui-icon-trash" title="Suppression Reclamation"
+							update=":f1,:f1:growl">
+							<p:confirm header="Suppression Reclamation"
+								message="Voulez-vous vraiment supprimer cette Reclamation ?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<h:form id="f2">
+					<p:dialog id="idDialog" widgetVar="dialogReclamation" modal="true"
+						showHeader="false" closable="false" resizable="false">
+
+						<p:panel id="dialog" header="#{reclamationbean} Reclamation">
+							<h:panelGrid columns="2">
+								<p:outputLabel value="Description : " />
+								<p:inputText value="#{reclamationbean.description}" />
+														
+							         </h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									oncomplete="PF('dialogReclamation').hide();"
+									action="#{reclamationbean.Validation()}" update=":f1" />
+								<p:commandButton value="Annuler"
+									icon="ui-icon-arrowreturnthick-1-n"
+									actionListener="#{reclamationbean.closeDiag()}" update=":f1"
+									oncomplete="PF('dialogReclamation').hide();" />
+							</h:panelGrid>
+						</p:panel>
+					</p:dialog>
+
+				</h:form>
+			</div>
+		</div>
+		<br />
+		<br />
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Gestion mecanicien</title>
+</h:head>
+<h:body>
+	<br />
+
+	<h:form id="f1">
+		<p:growl id="growl" life="3000" />
+
+		<div align="center">
+			<h:outputText value="Liste Des Mecanicien"
+				style="font-size:36px;font-weight:bold"></h:outputText>
+			<br /> <br /> <br />
+			<div style="width: 50%">
+				<div align="right">
+					<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+						update=":f1:f2:idDialog" oncomplete="PF('dialogMecanicien').show()"
+						actionListener="#{mecanicienbean.Ajout()}" />
+				</div>
+
+				<p:dataTable var="m" value="#{mecanicienbean.mecns}" border="1"
+					paginator="true" paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rows="10">
+					<p:column width="10%">
+						<f:facet name="header">
+							<h:outputLabel value="Numero Mecanicien" style="font-size:small;font-weight:bold;width:200px"/>
+						</f:facet>
+						<h:outputText value=" #{m.numero_mec}" />
+					</p:column>
+                     <p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Nom Mecanicien" style="font-size:small;font-weight:bold;width:200px"/>
+						</f:facet>
+						<h:outputText value=" #{m.nom_mecanicien}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Adresse" style="font-size:small;font-weight:bold;width:200px"/>
+						</f:facet>
+						<h:outputText value=" #{m.adresse}" />
+					</p:column>
+					
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Telephone" style="font-size:small;font-weight:bold;width:200px"/>
+						</f:facet>
+						<h:outputText value=" #{m.telephone}" />
+					</p:column>
+					
+					<p:column style="width:20%">
+						<p:commandButton actionListener="#{mecanicienbean.Modifier(m)}"
+							update=":f1:f2:idDialog"
+							oncomplete="PF('dialogMecanicien').show()" icon="ui-icon-pencil"
+							title="Modification" />
+						<p:commandButton actionListener="#{mecanicienbean.supprimer(m)}"
+							icon="ui-icon-trash" title="Suppression Mecanicien"
+							update=":f1,:f1:growl">
+							<p:confirm header="Suppression Mecanicien"
+								message="Voulez-vous vraiment supprimer cette Mecanicien ?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<h:form id="f2">
+					<p:dialog id="idDialog" widgetVar="dialogMecanicien" modal="true"
+						showHeader="false" closable="false" resizable="false">
+						
+                      <p:panel id="dialog" header="#{mecanicienbean.action} de Mecanicien">
+							<h:panelGrid columns="2">
+							  						
+								<p:outputLabel value="Nom Mecanicien : "  style="font-size:small;font-weight:bold;width:100px"/>
+								<p:inputText value="#{mecanicienbean.nom_mecanicien}" />
+
+
+								<p:outputLabel value="Adresse: " style="font-size:small;font-weight:bold;width:100px"/>
+								<p:inputText value="#{mecanicienbean.adresse}" />
+
+								<p:outputLabel value="Telephone : " style="font-size:small;font-weight:bold;width:100px"/>
+								<p:inputText value="#{mecanicienbean.telephone}" />
+								
+								
+							
+							</h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									oncomplete="PF('dialogMecanicien').hide();"
+									action="#{mecanicienbean.validation()}" update=":f1" />
+								<p:commandButton value="Annuler"
+									icon="ui-icon-arrowreturnthick-1-n"
+									actionListener="#{mecanicienbean.closD()}" update=":f1"
+									oncomplete="PF('dialogMecanicien').hide();" />
+							</h:panelGrid>
+						</p:panel>
+					</p:dialog>
+
+				</h:form>
+			</div>
+		</div>
+		<br />
+		<br />
+	</h:form>
+</h:body>
+</html>

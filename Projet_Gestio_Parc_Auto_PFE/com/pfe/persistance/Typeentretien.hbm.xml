@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29 f?vr. 2016 10:10:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Typeentretien" table="typeentretien" catalog="parc_auto_pfe">
+        <id name="numeroTypeE" type="java.lang.Integer">
+            <column name="numero_typeE" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="sousTypeEntretien" class="com.pfe.persistance.SousTypeEntretien" fetch="select">
+            <column name="numero_sous_type" />
+        </many-to-one>
+        <property name="nomTypeE" type="string">
+            <column name="nom_typeE" length="45" />
+        </property>
+        <set name="entretiens" table="entretien" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="numero_typeE" />
+            </key>
+            <one-to-many class="com.pfe.persistance.Entretien" />
+        </set>
+    </class>
+</hibernate-mapping>

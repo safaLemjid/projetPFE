@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Liste Personnels</title>
+</h:head>
+<h:body>
+	<br />
+
+	<h:form id="f1">
+		<p:growl id="growl" life="3000" />
+
+		<div align="center">
+			<h:outputText value="Liste Des Personnels"></h:outputText>
+			<br /> <br /> <br />
+			<div>
+				<div align="right">
+					<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+						update=":f1:f2:idDialog" oncomplete="PF('dialogPersonnel').show()"
+						actionListener="#{personnelbean.Ajout()}" />
+				</div>
+
+				<p:dataTable var="p" 
+					value="#{personnelbean.pls}" border="1" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rows="10">
+					<p:column width="10%">
+						<f:facet name="header">
+							<h:outputLabel value="Code" style="font-size:small;font-weight:bold;width:600px" />
+						</f:facet>
+						<h:outputText value=" #{p.matricule}" />
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Personnel" style="font-size:small;font-weight:bold;width:600px" />
+						</f:facet>
+						<h:outputText value=" #{p.nom}-#{p.prenom}" />
+
+					</p:column>
+					<p:column headerText="Date Naissance" width="180px">
+
+						<h:outputText value="#{p.dateNaissance}"
+							style="font-size:small;font-weight:bold;width:200px">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+                  <p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Telephone" style="font-size:small;font-weight:bold;width:600px"/>
+						</f:facet>
+						<h:outputText value=" #{p.telephone}" />
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="CIN" style="font-size:small;font-weight:bold;width:600px"/>
+						</f:facet>
+						<h:outputText value=" #{p.cin}" />
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Contact" style="font-size:small;font-weight:bold;width:600px"/>
+						</f:facet>
+						<h:outputText value=" #{p.email}" />
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Adresse" style="font-size:small;font-weight:bold;width:600px"/>
+						</f:facet>
+						<h:outputText value=" #{p.adresse}" />
+
+					</p:column>
+					
+					<p:column style="width:20%">
+						<p:commandButton
+							actionListener="#{personnelbean.Modifier(p)}"
+							update=":f1:f2:idDialog" oncomplete="PF('dialogPersonnel').show()"
+							icon="ui-icon-pencil" title="Modification" />
+						<p:commandButton
+							actionListener="#{personnelbean.supprimer(p)}"
+							icon="ui-icon-trash" title="Suppression Personnel"
+							update=":f1,:f1:growl">
+							<p:confirm header="Suppression Personnle"
+								message="Voulez-vous vraiment supprimer cette Personnel ?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<h:form id="f2">
+				
+					<p:dialog id="idDialog" widgetVar="dialogPersonnel" modal="true"
+						showHeader="false" closable="false" resizable="false">
+                        <div>
+						<p:panel id="dialog" header="#{personnelbean.action} Personnel">
+						
+							<h:panelGrid columns="2">
+								<p:outputLabel value="Nom : " />
+								<p:inputText value="#{personnelbean.nom}"  />
+								
+								<p:outputLabel value="Prenom : " />
+								<p:inputText value="#{personnelbean.prenom}"  />
+								
+								<p:outputLabel value="Date de naissance : " />
+       						    <p:calendar id="date"  value="#{personnelbean.dateNaissance}"
+									pattern="dd-MM-yyyy" mask="true" />								
+								<p:outputLabel value="Telephone : " />
+								<p:inputText value="#{personnelbean.telephone}"  />
+								
+								<p:outputLabel value="CIN : " />
+								<p:inputText value="#{personnelbean.cin}"  />
+								
+								<p:outputLabel value=" Email: " />
+								<p:inputText value="#{personnelbean.email}"  />
+								
+								<p:outputLabel value="Adresse : " />
+								<p:inputText value="#{personnelbean.adresse}"  />
+								 
+								     <p:outputLabel value="Compte : " />
+								  	 <div align="center">
+								           <p:selectOneMenu value="#{personnelbean.numerocompte}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold"  id="L">
+                          
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{personnelbean.comptes}" var="p"
+													itemLabel="#{p.login} -#{p.motDePasse}" itemValue="#{p.numeroCompte}" />
+											</p:selectOneMenu>
+											<div>
+													<p:commandButton  icon="ui-icon-plusthick"
+												update=":f1:f2:f3:idDialog" oncomplete="PF('dialogcompte').show()"
+												actionListener="#{connectBean.ajout()}" />
+											 </div>
+									
+											
+									 	<p:outputLabel value="Type Personnel : " />
+								         <p:selectOneMenu value="#{personnelbean.numerotypeP}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold">
+
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{personnelbean.typepersonnels}" var="p"
+													itemLabel="#{p.nomTypeP}" itemValue="#{p.numeroTypeP}" />
+										</p:selectOneMenu>
+											
+									          <p:outputLabel value="Departement : " />
+								     <p:selectOneMenu value="#{personnelbean.numerodepartement}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold">
+
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{personnelbean.departements}" var="p"
+													itemLabel="#{p.nomDepartement}" itemValue="#{p.numeroDepartement}" />
+										</p:selectOneMenu>
+											
+											<p:outputLabel value="Service : " />
+								         <p:selectOneMenu value="#{personnelbean.numeroservice}"
+												panelStyle="width:180px" filter="true"
+												filterMatchMode="startsWith" effect="fade"
+												style="font-size:small;font-weight:bold">
+
+												<f:selectItem itemLabel="--Selectioner--" itemValue="" />
+												<f:selectItems value="#{personnelbean.services}" var="p"
+													itemLabel="#{p.nomService}" itemValue="#{p.numeroService}" />
+										</p:selectOneMenu>	
+										</div>
+									</h:panelGrid>
+								
+							<h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									oncomplete="PF('dialogPersonnel').hide();"
+									action="#{personnelbean.Validation()}" update=":f1" />
+								<p:commandButton value="Annuler"
+									icon="ui-icon-arrowreturnthick-1-n"
+									actionListener="#{personnelbean.closeDiag()}" update=":f1"
+									oncomplete="PF('dialogPersonnel').hide();" />
+							</h:panelGrid>
+						</p:panel>
+						</div>
+					</p:dialog>
+		     <h:form id="f3">
+			     		<p:dialog id="idDialog" widgetVar="dialogcompte" modal="true"
+						showHeader="false" closable="false" resizable="false">
+
+						<p:panel id="dialog" header="#{connectBean.action} Compte">
+							<h:panelGrid columns="2">
+								<p:outputLabel value="Login : " />
+								<p:inputText value="#{connectBean.login}"  />
+								<p:outputLabel value="Mot de passe : " />
+								<p:inputText value="#{connectBean.motPasse}"  />						
+							         </h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									oncomplete="PF('dialogcompte').hide();"
+									action="#{connectBean.valider()}" update=":f1:f2:L" />
+								<p:commandButton value="Annuler"
+									icon="ui-icon-arrowreturnthick-1-n"
+									actionListener="#{connectBean.ClosDig()}" update=":f1:f2"
+									oncomplete="PF('dialogcompte').hide();" />
+							</h:panelGrid>
+						</p:panel>
+					</p:dialog>
+			     </h:form>
+				</h:form>
+	
+					</div>
+				</div>
+				<br />
+				<br />
+			</h:form>
+</h:body>
+</html>

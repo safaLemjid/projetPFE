@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 1 mars 2016 11:51:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Personnel" table="personnel">
+        <id name="matricule" type="java.lang.Integer">
+            <column name="matricule" />
+            <generator class="increment" />
+        </id>
+        <one-to-one name="compte" class="com.pfe.persistance.Compte"> </one-to-one>
+        
+        
+        <many-to-one name="departement" class="com.pfe.persistance.Departement" fetch="select">
+            <column name="numero_departement" />
+        </many-to-one>
+        <many-to-one name="typepersonnel" class="com.pfe.persistance.Typepersonnel" fetch="select">
+            <column name="numero_typeP" />
+        </many-to-one>
+        <many-to-one name="service" class="com.pfe.persistance.Service" fetch="select">
+            <column name="numero_service" />
+        </many-to-one>
+        <property name="nom" type="java.lang.String">
+            <column name="nom" />
+        </property>
+        <property name="prenom" type="java.lang.String">
+            <column name="prenom" />
+        </property>
+        <property name="cin" type="java.lang.String">
+            <column name="CIN" />
+        </property>
+        <property name="telephone" type="java.lang.String">
+            <column name="telephone" />
+        </property>
+        <property name="dateNaissance" type="java.util.Date">
+            <column name="date_naissance" />
+        </property>
+        <property name="adresse" type="java.lang.String">
+            <column name="adresse" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" />
+        </property>
+        
+        <set name="comptes" table="compte" inverse="false" lazy="true">
+            <key>
+                <column name="matricule" />
+            </key>
+            <one-to-many class="com.pfe.persistance.Compte" />
+        </set>
+        
+         <set name="reclamations" table="reclamation" inverse="false" lazy="true">
+            <key>
+                <column name="matricule" />
+            </key>
+            <one-to-many class="com.pfe.persistance.Reclamation" />
+        </set>
+    </class>
+</hibernate-mapping>

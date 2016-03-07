@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>Gestion Categorie</title>
+</h:head>
+<h:body>
+	<br />
+
+	<h:form id="f1">
+		<p:growl id="growl" life="3000" />
+
+		<div align="center">
+			<h:outputText value="Liste Des Categories"
+				style="font-size:36px;font-weight:bold"></h:outputText>
+			<br /> <br /> <br />
+			<div style="width: 50%">
+				<div align="right">
+					<p:commandButton value="Nouveau" icon="ui-icon-plusthick"
+						update=":f1:f2:idDialog" oncomplete="PF('dialogCategorie').show()"
+						actionListener="#{categoriebean.Ajout()}" />
+				</div>
+
+				<p:dataTable var="cat" 
+					value="#{categoriebean.categs}" border="1" paginator="true"
+					paginatorPosition="bottom"
+					paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rows="10">
+					<p:column width="10%">
+						<f:facet name="header">
+							<h:outputLabel value="Numero Categorie" style="font-size:small;font-weight:bold;width:600px" />
+						</f:facet>
+						<h:outputText value=" #{cat.numero_categorie}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Nom Categorie" style="font-size:small;font-weight:bold;width:600px" />
+						</f:facet>
+						<h:outputText value=" #{cat.nom_categorie}" />
+
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputLabel value="Type Categorie" style="font-size:small;font-weight:bold;width:600px" />
+						</f:facet>
+						<h:outputText value=" #{cat.type_categorie}" />
+
+					</p:column>
+					<p:column style="width:20%">
+						<p:commandButton
+							actionListener="#{categoriebean.Modifier(cat)}"
+							update=":f1:f2:idDialog" oncomplete="PF('dialogCategorie').show()"
+							icon="ui-icon-pencil" title="Modification" />
+						<p:commandButton
+							actionListener="#{categoriebean.supprimer(cat)}"
+							icon="ui-icon-trash" title="Suppression Categorie"
+							update=":f1,:f1:growl">
+							<p:confirm header="Suppression Etat"
+								message="Voulez-vous vraiment supprimer cette Categorie ?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:confirmDialog global="true" showEffect="fade"
+					hideEffect="explode">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<h:form id="f2">
+					<p:dialog id="idDialog" widgetVar="dialogCategorie" modal="true"
+						showHeader="false" closable="false" resizable="false">
+
+						<p:panel id="dialog" header="#{categoriebean.action} Categorie">
+							<h:panelGrid columns="2">
+								<p:outputLabel value="Nom Categorie : " />
+								<p:inputText value="#{categoriebean.nom_categorie}"  />
+								<p:outputLabel value="Type Categorie : " />
+								<p:inputText value="#{categoriebean.type_categorie}"  />
+														
+							         </h:panelGrid>
+							<h:panelGrid columns="2">
+								<p:commandButton value="Valider" icon="ui-icon-check"
+									oncomplete="PF('dialogCategorie').hide();"
+									action="#{categoriebean.Valider()}" update=":f1" />
+								<p:commandButton value="Annuler"
+									icon="ui-icon-arrowreturnthick-1-n"
+									actionListener="#{categoriebean.ClosDig()}" update=":f1"
+									oncomplete="PF('dialogCategorie').hide();" />
+							</h:panelGrid>
+						</p:panel>
+					</p:dialog>
+
+				</h:form>
+			</div>
+		</div>
+		<br />
+		<br />
+	</h:form>
+</h:body>
+</html>

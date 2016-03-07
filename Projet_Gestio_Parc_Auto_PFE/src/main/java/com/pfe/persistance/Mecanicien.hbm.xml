@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 1 mars 2016 11:51:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Mecanicien" table="mecanicien">
+        <id name="numero_mec" type="java.lang.Integer">
+            <column name="numero_mecanicien" />
+            <generator class="increment" />
+        </id>
+        
+        <property name="nom_mecanicien" type="java.lang.String">
+            <column name="nom_mecanicien" />
+        </property>
+        <property name="adresse" type="java.lang.String">
+            <column name="adresse" />
+        </property>
+        <property name="telephone" type="java.lang.Integer">
+            <column name="telephone" />
+        </property>
+        <set name="entretienss" table="entretien" inverse="false" lazy="true">
+            <key>
+                <column name="numero_mecanicien" />
+            </key>
+            <one-to-many class="com.pfe.persistance.Entretien" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

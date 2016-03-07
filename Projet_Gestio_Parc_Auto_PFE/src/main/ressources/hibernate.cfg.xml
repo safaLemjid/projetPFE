@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory>
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.password">safa</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost/parc_auto_pfe</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.current_session_context_class">thread</property>
+  <mapping class="com.pfe.persistance.Compte" resource="com/pfe/persistance/Compte.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Personnel" resource="com/pfe/persistance/Personnel.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Departement" resource="com/pfe/persistance/Departement.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Service" resource="com/pfe/persistance/Service.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Typepersonnel" resource="com/pfe/persistance/Typepersonnel.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Entretien" resource="com/pfe/persistance/Entretien.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Typeentretien" resource="com/pfe/persistance/Typeentretien.hbm.xml"/>
+  <mapping class="com.pfe.persistance.SousTypeEntretien" resource="com/pfe/persistance/SousTypeEntretien.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Mecanicien" resource="com/pfe/persistance/Mecanicien.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Reclamation" resource="com/pfe/persistance/Reclamation.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Etat" resource="com/pfe/persistance/Etat.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Vehicule" resource="com/pfe/persistance/Vehicule.hbm.xml"/>
+  <mapping class="com.pfe.persistance.Categorie" resource="com/pfe/persistance/Categorie.hbm.xml"/>
+ </session-factory>
+</hibernate-configuration>

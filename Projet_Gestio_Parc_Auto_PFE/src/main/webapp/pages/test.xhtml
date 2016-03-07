@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en"
+    xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<h:head>
+	<link href="assets/css/bootstrap.css" rel="stylesheet"/>
+    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="assets/css/style.css" rel="stylesheet"/>
+    <link href="assets/css/style-responsive.css" rel="stylesheet"/>
+ <title>Gestion parc Automobile</title></h:head>
+   <!-- Bootstrap core CSS -->
+    <body><div id="login-page">
+	  	    <div class="container">
+	  	
+		        <form class="form-login" action="index.html">      
+		        <h2 class="form-login-heading">Conncter ici</h2>
+		        <div class="login-wrap">
+		        
+     <h:form id="f1">
+     <p:growl id="growl" life="4000" />  
+				<h:panelGroup>
+				<p:outputLabel value="Login : " />
+				<p:inputText value="#{connectBean.login}" />
+				</h:panelGroup>
+				<h:panelGroup>
+				<p:outputLabel value="Mot de passe :" />
+				<p:inputText value="#{connectBean.motPasse}" />
+				</h:panelGroup>
+				<p:commandButton value="Valider" actionListener="#{connectBean.connecter()}" ajax="false"
+				oncomplete="PF('dialogcompte').show();" update=":f1:f2:idDialog" />
+				
+				<p:commandButton value="Ajouter Compte" actionListener="#{connectBean.annuler()}"
+							oncomplete="PF('dialogcompte').show()" update=":f1:f2:idDialog"  />
+										
+			 <h:form id="f2">
+			    <p:dialog id="idDialog" widgetVar="dialogcompte">
+				<p:panel>
+					<h:panelGrid columns="2">
+						<h:outputText value="login :" />
+						<h:inputText value="#{connectBean.login}" />
+						<h:outputText value="mot de passe :" />
+						<h:inputText value="#{connectBean.motPasse}" />
+					</h:panelGrid>
+
+		              <h:panelGrid columns="2">
+						<p:commandButton value="Valider"
+							actionListener="#{connectBean.AjouterCompte()}" update=":f1"
+							oncomplete="PF('dialogcompte').hide();"  />
+						<p:commandButton value="Annuler"
+									actionListener="#{connectBean.closeDiag()}" update=":f1"
+									oncomplete="PF('dialogcompte').hide();"  />	
+				      </h:panelGrid>
+				</p:panel>
+			</p:dialog>
+			</h:form>			   
+        </h:form>
+     
+     
+                 </div>
+		         </form>
+		       
+		     
+	  	     </div>
+	     </div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="assets/js/jquery.backstretch.min.js"></script>
+    <script>
+        $.backstretch("assets/img/back.jpg", {speed: 500});
+    </script>
+
+   
+  </body>
+</html>

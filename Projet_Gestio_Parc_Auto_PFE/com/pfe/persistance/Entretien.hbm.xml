@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29 f?vr. 2016 10:10:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Entretien" table="entretien" catalog="parc_auto_pfe">
+        <id name="numeroEntretien" type="java.lang.Integer">
+            <column name="numero_entretien" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="typeentretien" class="com.pfe.persistance.Typeentretien" fetch="select">
+            <column name="numero_typeE" />
+        </many-to-one>
+        <property name="dateArrive" type="date">
+            <column name="date_arrive" length="10" />
+        </property>
+        <property name="dateDepart" type="date">
+            <column name="date_depart" length="10" />
+        </property>
+        <property name="coutTotal" type="java.lang.Float">
+            <column name="cout_total" precision="12" scale="0" />
+        </property>
+        <property name="dureeEntretien" type="java.lang.Integer">
+            <column name="duree_entretien" />
+        </property>
+    </class>
+</hibernate-mapping>

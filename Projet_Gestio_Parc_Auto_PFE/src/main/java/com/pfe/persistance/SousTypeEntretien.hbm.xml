@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 1 mars 2016 11:51:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.SousTypeEntretien" table="sous_type_entretien">
+        <id name="numeroSousType" type="java.lang.Integer">
+            <column name="numero_sous_type" />
+            <generator class="increment" />
+        </id>
+        <property name="description" type="java.lang.String">
+            <column name="description" />
+        </property>
+        <property name="prixSousType" type="java.lang.Float">
+            <column name="prix_sous_type" />
+        </property>
+        <many-to-one name="typeentretien" class="com.pfe.persistance.Typeentretien" fetch="select">
+            <column name="numero_typeE" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

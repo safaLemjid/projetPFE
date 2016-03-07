@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 1 mars 2016 11:51:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Departement" table="departement">
+        <id name="numeroDepartement" type="java.lang.Integer">
+            <column name="numero_departement" />
+            <generator class="increment" />
+        </id>
+        <property name="nomDepartement" type="java.lang.String">
+            <column name="nom_departement" />
+        </property>
+        <set name="personnels2" table="personnel" inverse="false" lazy="true">
+            <key>
+                <column name="numero_departement" />
+            </key>
+            <one-to-many class="com.pfe.persistance.Personnel" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 mars 2016 10:30:10 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Etat" table="ETAT">
+        <id name="numero_etat" type="java.lang.Integer">
+            <column name="numero_etat" />
+            <generator class="increment" />
+        </id>
+        <property name="nom_etat" type="java.lang.String">
+            <column name="nom_etat" />
+        </property>
+        <set name="vehicules1" table="vehicule" inverse="false" lazy="true">
+            <key>
+                <column name="numero_etat" />
+            </key>
+            <one-to-many class="com.pfe.persistance.Vehicule" />
+        </set>
+    </class>
+</hibernate-mapping>

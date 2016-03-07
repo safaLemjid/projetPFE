@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 29 f?vr. 2016 10:10:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Compte" table="compte" catalog="parc_auto_pfe">
+        <id name="numeroCompte" type="java.lang.Integer">
+            <column name="numero_compte" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="personnel" class="com.pfe.persistance.Personnel" fetch="select">
+            <column name="matricule" />
+        </many-to-one>
+        <property name="login" type="string">
+            <column name="login" length="45" />
+        </property>
+        <property name="motDePasse" type="string">
+            <column name="mot_de_passe" length="45" />
+        </property>
+        <set name="personnels" table="personnel" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="numero_compte" />
+            </key>
+            <one-to-many class="com.pfe.persistance.Personnel" />
+        </set>
+    </class>
+</hibernate-mapping>

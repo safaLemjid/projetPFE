@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2 mars 2016 13:52:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.pfe.persistance.Reclamation" table="reclamation">
+        <id name="num_rec" type="java.lang.Integer">
+            <column name="numero_reclamation" />
+            <generator class="increment" />
+        </id>
+        
+         <many-to-one name="personnel" class="com.pfe.persistance.Personnel" fetch="select">
+            <column name="matricule" />
+        </many-to-one>
+         <property name="description" type="java.lang.String">
+            <column name="description" />
+        </property>
+    </class>
+</hibernate-mapping>
